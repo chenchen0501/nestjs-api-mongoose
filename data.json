@@ -1,0 +1,14 @@
+{
+  "firstName": "firstName #1",
+  "lastName": "lastName #1",
+  "email": "test@example.it",
+  "phone": "1234567890",
+  "address": "address #1",
+  "description": "description #1",
+  "organizations": "organization #1",
+
+  "name": "name #1",
+  "address": "address #1",
+  "description": "description #1",
+  "customers": "customer #1"
+}

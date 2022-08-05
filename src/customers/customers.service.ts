@@ -21,14 +21,14 @@ export class CustomersService {
       .find()
       .skip(offset)
       .limit(limit)
-      .populate('organization')
+      .populate('organizations')
       .exec();
   }
 
   public async findOne(customerId: string): Promise<Customer> {
     const customer = await this.customerModel
       .findById({ _id: customerId })
-      .populate('organization')
+      .populate('organizations')
       .exec();
 
     if (!customer) {
@@ -41,7 +41,10 @@ export class CustomersService {
   public async create(
     createCustomerDto: CreateCustomerDto,
   ): Promise<ICustomer> {
+    console.log('former', createCustomerDto);
     const newCustomer = await this.customerModel.create(createCustomerDto);
+    console.log('after', newCustomer);
+
     return newCustomer;
   }
 
