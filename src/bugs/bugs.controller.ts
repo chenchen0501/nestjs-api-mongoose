@@ -15,6 +15,7 @@ import { BugsService } from './bugs.service';
 import { CreateBugDto, UpdateBugDto } from './dto';
 import { PaginationQueryDto } from '../common/dto/pagination-query.dto';
 import { ApiTags } from '@nestjs/swagger';
+import { QueryBug } from './dto/query-bug.dto';
 
 @ApiTags('bugs')
 @Controller('bugs')
@@ -22,11 +23,8 @@ export class BugsController {
   constructor(private readonly bugsService: BugsService) {}
 
   @Get()
-  public async getAllBugs(
-    @Res() res,
-    @Query() paginationQuery: PaginationQueryDto,
-  ) {
-    const bugs = await this.bugsService.findAll(paginationQuery);
+  public async getAllBugs(@Res() res, @Query() queryBug: QueryBug) {
+    const bugs = await this.bugsService.findAll(queryBug);
     return res.status(HttpStatus.OK).json(bugs);
   }
 

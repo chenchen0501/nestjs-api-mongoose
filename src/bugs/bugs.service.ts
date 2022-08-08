@@ -5,6 +5,7 @@ import { IBug } from './interfaces/bug.interface';
 import { CreateBugDto, UpdateBugDto } from './dto';
 import { Bug } from './schemas/bug.schema';
 import { PaginationQueryDto } from '../common/dto/pagination-query.dto';
+import { QueryBug } from './dto/query-bug.dto';
 
 @Injectable()
 export class BugsService {
@@ -13,10 +14,21 @@ export class BugsService {
     private readonly bugModel: Model<Bug>,
   ) {}
 
-  public async findAll(paginationQuery: PaginationQueryDto): Promise<Bug[]> {
-    const { limit, offset } = paginationQuery;
+  public async findAll(queryBug: QueryBug): Promise<Bug[]> {
+    console.log('find all', queryBug);
+
+    const { limit, offset, name, type } = queryBug;
     return await this.bugModel
-      .find()
+      .find({
+        $and: [
+          {
+            name: new RegExp(name),
+          },
+          {
+            type,
+          },
+        ],
+      })
       .skip(offset)
       .limit(limit)
       .populate('creator')
