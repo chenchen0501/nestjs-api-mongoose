@@ -38,14 +38,14 @@ const createOrganizationDto: CreateOrganizationDto = {
   name: 'name #1',
   address: 'address #1',
   description: 'description #1',
-  customers: 'customers #1',
+  // customers: 'customers #1',
 };
 
 const updateOrganizationDto: UpdateOrganizationDto = {
   name: 'name update',
   address: 'address update',
   description: 'description update',
-  customers: 'customers update',
+  // customers: 'customers update',
 };
 
 describe('Organizations Controller', () => {

@@ -9,4 +9,7 @@ export class CreateBugDto {
   @IsNumber()
   @IsNotEmpty()
   readonly type: number;
+
+  @IsString()
+  readonly creator: string;
 }

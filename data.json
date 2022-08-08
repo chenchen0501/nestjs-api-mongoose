@@ -10,5 +10,8 @@
   "name": "name #1",
   "address": "address #1",
   "description": "description #1",
-  "customers": "customer #1"
+  "customers": "customer #1",
+
+  "name": "bug3",
+  "type": 3
 }

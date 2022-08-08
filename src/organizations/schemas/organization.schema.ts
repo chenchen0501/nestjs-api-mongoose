@@ -12,8 +12,8 @@ export class Organization extends Document {
   @Prop()
   description: string;
 
-  @Prop({ type: [Types.ObjectId], ref: 'Customer' })
-  customers: string;
+  // @Prop({ type: [Types.ObjectId], ref: 'Customer' })
+  // customers: string;
 }
 
 export const OrganizationSchema = SchemaFactory.createForClass(Organization);

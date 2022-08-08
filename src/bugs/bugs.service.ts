@@ -15,7 +15,12 @@ export class BugsService {
 
   public async findAll(paginationQuery: PaginationQueryDto): Promise<Bug[]> {
     const { limit, offset } = paginationQuery;
-    return await this.bugModel.find().skip(offset).limit(limit).exec();
+    return await this.bugModel
+      .find()
+      .skip(offset)
+      .limit(limit)
+      .populate('creator')
+      .exec();
   }
 
   public async create(createBugDto: CreateBugDto): Promise<IBug> {
