@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Module, MiddlewareConsumer } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { MongooseModule } from '@nestjs/mongoose';
@@ -6,7 +6,7 @@ import { CustomersModule } from './customers/customers.module';
 import { OrganizationsModule } from './organizations/organizations.module';
 import { BugsModule } from './bugs/bugs.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-
+import { LoggerMiddleware } from './common/middleware/logger';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -27,4 +27,8 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(LoggerMiddleware).forRoutes('bugs');
+  }
+}

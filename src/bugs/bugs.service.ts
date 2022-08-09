@@ -15,8 +15,6 @@ export class BugsService {
   ) {}
 
   public async findAll(queryBug: QueryBug): Promise<Bug[]> {
-    console.log('find all', queryBug);
-
     const { limit, offset, name, type } = queryBug;
     return await this.bugModel
       .find({
