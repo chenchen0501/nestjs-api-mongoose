@@ -15,18 +15,21 @@ export class BugsService {
   ) {}
 
   public async findAll(queryBug: QueryBug): Promise<Bug[]> {
-    const { limit, offset, name, type } = queryBug;
+    const { limit, offset, ...rest } = queryBug;
+
+    const blurryKeys = ['name'];
+    const query = {};
+
+    for (let key in rest) {
+      if (queryBug[key]) {
+        query[key] = blurryKeys.includes(key)
+          ? new RegExp(queryBug[key])
+          : queryBug[key];
+      }
+    }
+
     return await this.bugModel
-      .find({
-        $and: [
-          {
-            name: new RegExp(name),
-          },
-          {
-            type,
-          },
-        ],
-      })
+      .find(query)
       .skip(offset)
       .limit(limit)
       .populate('creator')
