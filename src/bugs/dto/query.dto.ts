@@ -1,7 +1,7 @@
 import { PaginationQueryDto } from '../../common/dto/pagination-query.dto';
 import { IsNumber, IsOptional, IsString } from 'class-validator';
 
-export class QueryBug extends PaginationQueryDto {
+export class QueryDto extends PaginationQueryDto {
   @IsString()
   @IsOptional()
   name: string;
@@ -9,4 +9,8 @@ export class QueryBug extends PaginationQueryDto {
   @IsNumber()
   @IsOptional()
   type: number;
+
+  @IsString()
+  @IsOptional()
+  creatorName: string;
 }

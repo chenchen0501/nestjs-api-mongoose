@@ -9,8 +9,11 @@ export class Bug extends Document {
   @Prop()
   type: number;
 
-  @Prop({ type: [Types.ObjectId], ref: 'Customer' })
-  creator: string;
+  @Prop({ type: Types.ObjectId, ref: 'Customer' })
+  creatorId: string;
+
+  @Prop({ type: Types.ObjectId, ref: 'Project' })
+  projectId: string;
 }
 
 export const BugSchema = SchemaFactory.createForClass(Bug);

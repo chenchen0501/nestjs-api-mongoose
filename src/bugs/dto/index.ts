@@ -1,2 +1,2 @@
-export * from './create-bug.dto';
-export * from './update-bug.dto';
+export * from './create.dto';
+export * from './update.dto';

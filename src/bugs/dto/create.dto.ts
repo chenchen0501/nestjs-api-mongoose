@@ -1,6 +1,6 @@
 import { MaxLength, IsNotEmpty, IsString, IsNumber } from 'class-validator';
 
-export class CreateBugDto {
+export class CreateDto {
   @IsString()
   @MaxLength(30)
   @IsNotEmpty()
@@ -10,6 +10,11 @@ export class CreateBugDto {
   @IsNotEmpty()
   readonly type: number;
 
+  @IsNotEmpty()
   @IsString()
-  readonly creator: string;
+  readonly creatorId: string;
+
+  @IsNotEmpty()
+  @IsString()
+  readonly projectId: string;
 }
