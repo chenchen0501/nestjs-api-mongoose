@@ -3,18 +3,18 @@ import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { IResult } from './interfaces';
 import { CreateDto, UpdateDto } from './dto';
-import { Project } from './schemas';
+import { User } from './schemas';
 import { QueryDto } from './dto/query.dto';
 import { convertQuery } from '../utils';
 
 @Injectable()
 export class IService {
   constructor(
-    @InjectModel(Project.name)
-    private readonly iModel: Model<Project>,
+    @InjectModel(User.name)
+    private readonly iModel: Model<User>,
   ) {}
 
-  public async findAll(QueryDto: QueryDto): Promise<Project[]> {
+  public async findAll(QueryDto: QueryDto): Promise<User[]> {
     const { limit, offset, ...rest } = QueryDto;
 
     const query = convertQuery(rest, ['name']);
@@ -36,8 +36,8 @@ export class IService {
   }
 
   public async del(id: string): Promise<IResult> {
-    const result = await this.iModel.findByIdAndRemove(id);
+    const User = await this.iModel.findByIdAndRemove(id);
 
-    return result;
+    return User;
   }
 }

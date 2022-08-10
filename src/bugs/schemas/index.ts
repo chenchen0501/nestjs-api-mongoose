@@ -9,7 +9,7 @@ export class Bug extends Document {
   @Prop()
   type: number;
 
-  @Prop({ type: Types.ObjectId, ref: 'Customer' })
+  @Prop({ type: Types.ObjectId, ref: 'User' })
   creatorId: string;
 
   @Prop({ type: Types.ObjectId, ref: 'Project' })
