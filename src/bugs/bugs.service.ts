@@ -4,7 +4,6 @@ import { InjectModel } from '@nestjs/mongoose';
 import { IBug } from './interfaces/bug.interface';
 import { CreateBugDto, UpdateBugDto } from './dto';
 import { Bug } from './schemas/bug.schema';
-import { PaginationQueryDto } from '../common/dto/pagination-query.dto';
 import { QueryBug } from './dto/query-bug.dto';
 
 @Injectable()
@@ -32,7 +31,7 @@ export class BugsService {
       .find(query)
       .skip(offset)
       .limit(limit)
-      .populate('creator')
+      .populate('creator', 'firstName')
       .exec();
   }
 
@@ -50,6 +49,12 @@ export class BugsService {
       updateBugDto,
       { new: true },
     );
+
+    return bug;
+  }
+
+  public async delBug(bugId: string): Promise<IBug> {
+    const bug = await this.bugModel.findByIdAndRemove(bugId);
 
     return bug;
   }

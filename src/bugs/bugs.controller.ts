@@ -63,4 +63,20 @@ export class BugsController {
       });
     }
   }
+
+  @Delete('/:id')
+  public async delBug(@Res() res, @Param('id') bugId: string) {
+    try {
+      const bug = await this.bugsService.delBug(bugId);
+      return res.status(HttpStatus.OK).json({
+        message: 'bug has been deleted',
+        bug,
+      });
+    } catch (error) {
+      return res.status(HttpStatus.BAD_REQUEST).json({
+        message: 'Error: bug not deleted!',
+        status: 400,
+      });
+    }
+  }
 }

@@ -1,8 +1,9 @@
 import {
   MaxLength,
   IsNotEmpty,
-  IsEmail,
   IsString,
+  IsNumber,
+  IsArray,
   IsOptional,
 } from 'class-validator';
 
@@ -10,33 +11,13 @@ export class CreateCustomerDto {
   @IsString()
   @MaxLength(30)
   @IsNotEmpty()
-  readonly firstName: string;
+  readonly name: string;
 
-  @IsString()
-  @MaxLength(30)
+  @IsNumber()
   @IsNotEmpty()
-  readonly lastName: string;
+  readonly type: number;
 
-  @IsString()
-  @IsEmail()
-  @IsNotEmpty()
-  readonly email: string;
-
-  @IsString()
-  @MaxLength(30)
-  @IsNotEmpty()
-  readonly phone: string;
-
-  @IsString()
-  @MaxLength(40)
-  @IsNotEmpty()
-  readonly address: string;
-
-  @IsString()
-  @MaxLength(50)
-  readonly description: string;
-
-  @IsString()
+  @IsArray()
   @IsOptional()
-  readonly organizations: string;
+  readonly projectIds: Array<string>;
 }

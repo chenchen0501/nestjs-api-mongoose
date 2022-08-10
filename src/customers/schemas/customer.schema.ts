@@ -4,25 +4,13 @@ import { Document, Types } from 'mongoose';
 @Schema()
 export class Customer extends Document {
   @Prop()
-  firstName: string;
-
-  @Prop({ unique: true })
-  lastName: string;
-
-  @Prop({ unique: true })
-  email: string;
+  name: string;
 
   @Prop()
-  phone: string;
+  type: number;
 
-  @Prop()
-  address: string;
-
-  @Prop()
-  description: string;
-
-  @Prop({ type: [Types.ObjectId], ref: 'Organization' })
-  organizations: string;
+  @Prop({ type: [Types.ObjectId], ref: 'project' })
+  projectIds: Array<string>;
 }
 
 export const CustomerSchema = SchemaFactory.createForClass(Customer);

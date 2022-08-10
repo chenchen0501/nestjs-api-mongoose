@@ -7,6 +7,7 @@ import { OrganizationsModule } from './organizations/organizations.module';
 import { BugsModule } from './bugs/bugs.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { LoggerMiddleware } from './common/middleware/logger';
+import { ProjectsModule } from './projects/module';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -23,6 +24,7 @@ import { LoggerMiddleware } from './common/middleware/logger';
     CustomersModule,
     OrganizationsModule,
     BugsModule,
+    ProjectsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
