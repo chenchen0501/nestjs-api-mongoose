@@ -14,6 +14,7 @@ import { IService } from './service';
 import { CreateDto, UpdateDto } from './dto';
 import { ApiTags } from '@nestjs/swagger';
 import { QueryDto } from './dto/query.dto';
+import { Roles } from '../common/decorators/roles.decorator';
 
 @ApiTags('users')
 @Controller('users')
@@ -21,6 +22,7 @@ export class IController {
   constructor(private readonly iService: IService) {}
 
   @Get()
+  @Roles('admin')
   public async getAll(@Res() res, @Query() QueryDto: QueryDto) {
     const result = await this.iService.findAll(QueryDto);
     return res.status(HttpStatus.OK).json(result);

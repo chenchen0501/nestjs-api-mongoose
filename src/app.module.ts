@@ -7,6 +7,8 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { LoggerMiddleware } from './common/middleware/logger';
 import { ProjectsModule } from './projects/module';
 import { UsersModule } from './users/module';
+import { RolesGuard } from './common/guards/roleGuard';
+import { APP_GUARD } from '@nestjs/core';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -25,7 +27,13 @@ import { UsersModule } from './users/module';
     UsersModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+    {
+      useClass: RolesGuard,
+      provide: APP_GUARD,
+    },
+  ],
 })
 export class AppModule {
   configure(consumer: MiddlewareConsumer) {

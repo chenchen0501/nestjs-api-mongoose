@@ -22,7 +22,7 @@ async function bootstrap() {
   app.useGlobalFilters(new HttpExceptionFilter());
 
   const config = new DocumentBuilder()
-    .setTitle('API')
+    .setTitle('easy-bug')
     .setDescription('The API description')
     .setVersion('1.0')
     .addTag('customers')
