@@ -22,7 +22,7 @@ export class IController {
   constructor(private readonly iService: IService) {}
 
   @Get()
-  @Roles('admin')
+  // @Roles('admin')
   public async getAll(@Res() res, @Query() QueryDto: QueryDto) {
     const result = await this.iService.findAll(QueryDto);
     return res.status(HttpStatus.OK).json(result);
