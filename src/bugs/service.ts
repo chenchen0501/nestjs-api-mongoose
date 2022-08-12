@@ -14,23 +14,35 @@ export class IService {
     private readonly iModel: Model<Bug>,
   ) {}
 
-  public async findAll(QueryDto: QueryDto): Promise<Bug[]> {
-    const { limit, offset, ...rest } = QueryDto;
+  public async findAll(QueryDto: QueryDto): Promise<any> {
+    const { limit, page, ...rest } = QueryDto;
 
     const query = convertQuery(rest, ['name']);
 
-    return await this.iModel
+    console.log('query', query);
+
+    const data = await this.iModel
       .find(query)
-      .skip(offset)
+      .skip(page == 1 ? null : (page - 1) * limit)
       .limit(limit)
-      .populate('creatorId')
-      .populate('projectId')
+      .populate('creator', 'name')
+      .populate('project', 'name')
+      .populate('currentOperator', 'name')
       .exec();
+
+    const total = await this.iModel.find(query).count();
+
+    return {
+      data,
+      total,
+    };
   }
 
   public async create(createDto: CreateDto): Promise<IResult> {
-    const result = await this.iModel.create(createDto);
-    return result;
+    return await this.iModel.create({
+      ...createDto,
+      currentOperator: createDto.creator,
+    });
   }
 
   public async update(id: string, UpdateDto: UpdateDto): Promise<IResult> {

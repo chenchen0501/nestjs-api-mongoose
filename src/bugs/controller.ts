@@ -14,6 +14,7 @@ import { IService } from './service';
 import { CreateDto, UpdateDto } from './dto';
 import { ApiTags } from '@nestjs/swagger';
 import { QueryDto } from './dto/query.dto';
+import { ResData } from 'src/common/interface/resData.dto';
 
 @ApiTags('bugs')
 @Controller('bugs')
@@ -22,17 +23,21 @@ export class IController {
 
   @Get()
   public async getAll(@Res() res, @Query() QueryDto: QueryDto) {
-    const result = await this.iService.findAll(QueryDto);
-    return res.status(HttpStatus.OK).json(result);
+    const data = await this.iService.findAll(QueryDto);
+    return res.status(HttpStatus.OK).json({
+      message: 'ok',
+      data,
+      status: 200,
+    });
   }
 
   @Post()
   public async add(@Res() res, @Body() CreateDto: CreateDto) {
     try {
-      const result = await this.iService.create(CreateDto);
+      await this.iService.create(CreateDto);
       return res.status(HttpStatus.OK).json({
         message: '新增成功',
-        result,
+        status: 200,
       });
     } catch (err) {
       return res.status(HttpStatus.BAD_REQUEST).json({
@@ -49,10 +54,10 @@ export class IController {
     @Body() UpdateDto: UpdateDto,
   ) {
     try {
-      const result = await this.iService.update(id, UpdateDto);
+      await this.iService.update(id, UpdateDto);
       return res.status(HttpStatus.OK).json({
         message: '更新成功',
-        result,
+        status: 200,
       });
     } catch (error) {
       return res.status(HttpStatus.BAD_REQUEST).json({
@@ -69,7 +74,7 @@ export class IController {
       if (result) {
         return res.status(HttpStatus.OK).json({
           message: '删除成功',
-          result,
+          status: 200,
         });
       } else {
         return res.status(HttpStatus.BAD_REQUEST).json({

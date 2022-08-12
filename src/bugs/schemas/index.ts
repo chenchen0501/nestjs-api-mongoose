@@ -7,13 +7,31 @@ export class Bug extends Document {
   name: string;
 
   @Prop()
+  expect: string;
+
+  @Prop()
   type: number;
 
+  @Prop({ default: 1 })
+  status: number;
+
+  @Prop()
+  priority: number;
+
+  @Prop()
+  files: Array<string>;
+
   @Prop({ type: Types.ObjectId, ref: 'User' })
-  creatorId: string;
+  creator: string;
+
+  @Prop({ default: Date.now() })
+  createTime: Date;
+
+  @Prop({ type: Types.ObjectId, ref: 'User' })
+  currentOperator: string;
 
   @Prop({ type: Types.ObjectId, ref: 'Project' })
-  projectId: string;
+  project: string;
 }
 
 export const BugSchema = SchemaFactory.createForClass(Bug);

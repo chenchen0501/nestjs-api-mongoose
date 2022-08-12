@@ -15,11 +15,11 @@ export class IService {
   ) {}
 
   public async findAll(QueryDto: QueryDto): Promise<User[]> {
-    const { limit, offset, ...rest } = QueryDto;
+    const { limit, page, ...rest } = QueryDto;
 
     const query = convertQuery(rest, ['name']);
 
-    return await this.iModel.find(query).skip(offset).limit(limit).exec();
+    return await this.iModel.find(query).skip(page).limit(limit).exec();
   }
 
   public async create(createDto: CreateDto): Promise<IResult> {
