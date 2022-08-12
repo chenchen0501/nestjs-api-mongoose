@@ -12,5 +12,9 @@ export class QueryDto extends PaginationQueryDto {
 
   @IsString()
   @IsOptional()
+  project: string;
+
+  @IsString()
+  @IsOptional()
   creatorName: string;
 }

@@ -14,12 +14,23 @@ export class IService {
     private readonly iModel: Model<Project>,
   ) {}
 
-  public async findAll(QueryDto: QueryDto): Promise<Project[]> {
+  public async findAll(QueryDto: QueryDto): Promise<any> {
     const { limit, page, ...rest } = QueryDto;
 
     const query = convertQuery(rest, ['name']);
 
-    return await this.iModel.find(query).skip(page).limit(limit).exec();
+    const data = await this.iModel
+      .find(query)
+      .skip(page == 1 ? null : (page - 1) * limit)
+      .limit(limit)
+      .exec();
+
+    const total = await this.iModel.find(query).count();
+
+    return {
+      data,
+      total,
+    };
   }
 
   public async create(createDto: CreateDto): Promise<IResult> {

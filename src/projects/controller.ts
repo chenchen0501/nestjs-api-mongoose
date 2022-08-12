@@ -22,8 +22,12 @@ export class IController {
 
   @Get()
   public async getAll(@Res() res, @Query() QueryDto: QueryDto) {
-    const result = await this.iService.findAll(QueryDto);
-    return res.status(HttpStatus.OK).json(result);
+    const data = await this.iService.findAll(QueryDto);
+    return res.status(HttpStatus.OK).json({
+      message: 'ok',
+      data,
+      status: 200,
+    });
   }
 
   @Post()

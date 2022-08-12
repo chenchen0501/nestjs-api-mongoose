@@ -28,6 +28,7 @@ export class IService {
       .populate('creator', 'name')
       .populate('project', 'name')
       .populate('currentOperator', 'name')
+      .sort('-createTime')
       .exec();
 
     const total = await this.iModel.find(query).count();
